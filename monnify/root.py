@@ -6,7 +6,9 @@ import os
 
 from . import BASE_URL, ENVIRONMENT, TIMEOUT
 from datetime import datetime, timedelta
-
+from dateutil.parser import parse
+import sys
+sys.path.append("/home/abdulhaleem/Documents/monnify/")
 
 class MonnifyAPI:
     """
@@ -64,25 +66,39 @@ class MonnifyAPI:
         payload = {"AUTHORIZATION": AUTHORIZATION}
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Basic " + self.AUTHORIZATION,
+            "Authorization": "Basic " + AUTHORIZATION,
         }
         try:
             response = requests.post(url, headers=headers, data=json.dumps(payload))
-            expiry_time = datetime.now() + timedelta(minutes=55)
-        except Exception as e:
-            data = {"success": False, "error": str(e)}
+            response.raise_for_status()  # Raises a HTTPError if the response was unsuccessful
+            response_data = response.json()
+            if response_data["requestSuccessful"]:
+                expiry_time = datetime.now() + timedelta(minutes=55)
+                access_token = response.json()["responseBody"]["accessToken"]
+                return {"success": True, "accessToken": access_token, "expiryTime": expiry_time}
+            else:
+                res = {"success": False, "error": response_data["responseMessage"], "responseCode": response_data["responseCode"]}
+                return self.handle_error(res)
+        except requests.HTTPError as http_err:
+            return {"success": False, "error": f'HTTP error occurred: {http_err}'}
+        except Exception as err:
+            return {"success": False, "error": f'Other error occurred: {err}'}
 
-        return response.json()["responseBody"]["accessToken"], expiry_time
+        # return response.json()["responseBody"]["accessToken"], expiry_time
 
     def is_token_expired(self):
-        return datetime.now() >= self.expiry_time
+        return datetime.now() >= parse(self.expiry_time)
 
     def make_request(self, endpoint, method="GET", data=None):
         if self.is_token_expired():
-            self.access_token, self.expiry_time = self.get_access_token()
-            self.session.headers.update(
-                {"Authorization": "Bearer " + self.access_token}
-            )
+            token_response = self.get_access_token()
+            if token_response["success"]:
+                self.access_token = token_response["accessToken"]
+                self.expiry_time = token_response["expiryTime"]
+                self.session.headers.update({"Authorization": "Bearer " + self.access_token})
+            else:
+                return token_response  # Return the error response from get_access_token
+           
         url = self.session.base_url + endpoint
         response = self.session.request(method, url, data=data)
 

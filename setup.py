@@ -5,9 +5,9 @@ setup(
     version='1.0.0',
     description='A Python package for Monnify integration',
     long_description=open('README.md').read(),
-    author='Your Name',
-    author_email='your_email@example.com',
-    url='https://github.com/your_username/Monnify',
+    author='Abdulhaleem Nasredeen',
+    author_email='nabdulhaleem09@gmail.com',
+    url='https://github.com/nasredeenabdulhaleem/monnify',
     packages=find_packages(),
     install_requires=[
         'requests',

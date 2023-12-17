@@ -1,21 +1,20 @@
 # Monnify
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your-username/monnify/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/nasredeenabdulhaleem/monnify/blob/main/LICENSE)
 
 ## Description
 
-
- * Monnify is a payment gateway solution that solves the problem of securely processing online payments.
- * This README file provides an overview of the project and its purpose.
+* Monnify is a payment gateway solution that solves the problem of securely processing online payments.
+* This README file provides an overview of the project and its purpose.
  */
 A brief description of your project goes here. Explain what Monnify is and what problem it solves.
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [License](#license)
 
 ## Installation
 
@@ -31,4 +30,4 @@ Specify how others can contribute to your project. Include guidelines for submit
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/your-username/monnify/blob/main/LICENSE). Make sure to update the link with your actual license file.
+This project is licensed under the [MIT License](https://github.com/nasredeenabdulhaleem/monnify/blob/main/LICENSE). Make sure to update the link with your actual license file.
