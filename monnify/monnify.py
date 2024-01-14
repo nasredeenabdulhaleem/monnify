@@ -1,6 +1,8 @@
 from . import BASE_URL
 from .root import MonnifyAPI
 from .checkout import Checkout
+from .transaction import Transaction
+
 
 class Monnify(MonnifyAPI):
     """
@@ -21,13 +23,14 @@ class Monnify(MonnifyAPI):
 
     """
 
-    def __init__(self, api_key, secret_key, contract_code, base_url=None ):
+    def __init__(self, api_key, secret_key, contract_code, base_url=None):
         if base_url is None:
             base_url = BASE_URL
-        super().__init__(self,secret_key, api_key, contract_code, base_url, timeout=10)
+        super().__init__(self, secret_key, api_key, contract_code, base_url, timeout=10)
 
         self.api_key = api_key
         self.secret_key = secret_key
         self.base_url = base_url
         self.contract_code = contract_code
         self.checkout = Checkout
+        self.transaction = Transaction

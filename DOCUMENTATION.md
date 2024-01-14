@@ -45,6 +45,80 @@ The Monnify class also provides a Checkout class for handling checkout operation
 The Checkout class provides methods for interacting with the Monnify API's checkout endpoints.
 
 ```md
-
-Please replace "your_api_key", "your_secret_key", and "your_contract_code" with your actual API key, secret key, and contract code. Also, replace "/path/to/endpoint" with the actual API endpoint you want to call.  
+Please replace "your_api_key", "your_secret_key", and "your_contract_code" with your actual API key, secret key, and contract code. Also, replace "/path/to/endpoint" with the actual API endpoint you want to call.
 ```
+
+### Package Documentation
+
+#### Transaction
+
+##### initiate
+
+- General - This method is called to initiate a transaction and it returns json data with the checkout url and the transaction details - it accepts params passed as \*\*kwargs to the method call - sample
+
+      ```python
+      from monnify import transaction
+      params = {
+              "amount": 100.00,
+              "customerName": "Test User",
+              "customerEmail": "test@user.com",
+              "paymentReference": "123456",
+              "paymentDescription": "Test transaction",
+              "currencyCode": "USD",
+              "contractCode": "123456",
+              "redirectUrl": "https://example.com/redirect",
+              "paymentMethods": ["CARD", "ACCOUNT_TRANSFER"],
+          }
+
+      initiate_transaction = transaction.initiate(**params)
+
+      ```
+
+  - successful response
+
+        ```json
+
+        {
+            "requestSuccessful": true,
+            "responseMessage": "success",
+            "responseCode": "0",
+            "responseBody": {
+                "transactionReference": "MNFY|20190915200044|000090",
+                "paymentReference": "1568577644707",
+                "merchantName": "Test Limited",
+                "apiKey": "MK_TEST_VR7J3UAACH",
+                "enabledPaymentMethod": [
+                    "ACCOUNT_TRANSFER",
+                    "CARD"
+                ],
+                "checkoutUrl": "https://sandbox.sdk.monnify.com/checkout/MNFY|20190915200044|000090"
+            }
+
+        }
+
+        ```
+
+        - failed response
+
+        ```json
+        {
+            "requestSuccessful": false,
+            "responseMessage": "Duplicate payment reference",
+            "responseCode": "99"
+        }
+
+        {
+            "requestSuccessful": false,
+            "responseMessage": "Could not find specified contract",
+            "responseCode": "99"
+        }
+
+        {
+            "requestSuccessful": false,
+            "responseMessage": "Unknown sub account code MFY_SUB_32216539305.",
+            "responseCode": "99"  
+        }
+
+        ```
+
+#### Customer
