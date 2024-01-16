@@ -1,7 +1,17 @@
 from . import BASE_URL
 from .root import MonnifyAPI
-from .checkout import Checkout
 from .transaction import Transaction
+from .customer import Customer
+from .invoice import Invoice
+from .limitprofile import LimitProfile
+from .recurringpayment import RecurringPayment
+from .settlements import Settlements
+from .subaccount import SubAccount
+from .transfers import Transfers
+from .verificationapi import VerificationApi
+from .paycodeapi import PayCodeApi
+from .refund import Refund
+from .wallet import Wallet
 
 
 class Monnify(MonnifyAPI):
@@ -32,5 +42,15 @@ class Monnify(MonnifyAPI):
         self.secret_key = secret_key
         self.base_url = base_url
         self.contract_code = contract_code
-        self.checkout = Checkout
         self.transaction = Transaction
+        self.customer = Customer
+        self.invoice = Invoice
+        self.limit_profile = LimitProfile
+        self.recurring_payment = RecurringPayment
+        self.settlements = Settlements
+        self.sub_account = SubAccount
+        self.transfers = Transfers
+        self.verification_api = VerificationApi
+        self.pay_code_api = PayCodeApi
+        self.refund = Refund
+        self.wallet = Wallet

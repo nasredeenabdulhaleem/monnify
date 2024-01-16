@@ -88,9 +88,13 @@ class CustomerTestCase(unittest.TestCase):
 
         response = Customer.get_linked_accounts(**params)
 
-        mock_make_request.assert_called_once_with(f"/api/v1/bank-transfer/reserved-accounts/add-linked-accounts/{params['accountReference']}","PUT",data=params)
+        mock_make_request.assert_called_once_with(
+            f"/api/v1/bank-transfer/reserved-accounts/add-linked-accounts/{params['accountReference']}",
+            "PUT",
+            data=params,
+        )
         self.assertEqual(response.json(), {"success": True})
-    
+
     @patch.object(Customer, "make_request")
     def test_update_bvn_for_reserved_account(self, mock_make_request):
         mock_response = Mock()
@@ -125,9 +129,12 @@ class CustomerTestCase(unittest.TestCase):
 
         response = Customer.update_allowed_payment_sources(**params)
 
-        mock_make_request.assert_called_once_with(f"/api/v1/bank-transfer/reserved-accounts/update-payment-source-filter/{params['accountReference']}", "PUT", data=params)
+        mock_make_request.assert_called_once_with(
+            f"/api/v1/bank-transfer/reserved-accounts/update-payment-source-filter/{params['accountReference']}",
+            "PUT",
+            data=params,
+        )
         self.assertEqual(response.json(), {"success": True})
-
 
 
 if __name__ == "__main__":
